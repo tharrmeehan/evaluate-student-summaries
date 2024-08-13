@@ -1,0 +1,4 @@
+1. Abstract and erklärung thingy where?
+2. Where tf is workflow?
+3. Motivation for ML model. At theory or modeling
+4. list of figures not working

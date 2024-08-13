@@ -1,0 +1,10 @@
+LightGBM is a Gradient-Boosted Decision Tree (\gls{gbdt}) based Algorithm with two novel techniques, those being Gradient-based One-Side Sampling (\gls{goss}) and Exclusive Feature Bundling (\gls{efb}).
+
+\paragraph{\gls{goss}}This is a novel sampling technique, where data instances with smaller gradients are dropped randomly and data instances with larger gradients (or under-trained instances) are kept. This is due to the fact, that the information gain is higher for data instances with a larger gradient. The GOSS technique only focuses on those larger gradients. This effectively means that a large part of the performance can be retained, while using less data altogether and thus reducing the effective training time.
+
+\paragraph{\gls{efb}}This is a technique, where datasets with a high feature count get their dimensionality reduced. This is due to the fact that many of those datasets have sparse features (features with many zero entries). Those sparse features get combined into 'bundles' and since only zeros get overwritten, this does not affect the final accuracy while at the same time reducing the effective training time.\\
+
+\noindent According to the authors: ``LightGBM speeds up the
+training process of conventional GBDT by up to over 20 times while achieving almost the same accuracy.'' \parencite[p.~1]{NIPS2017_6449f44a}\\
+
+\noindent For a concise explanation of those techniques and details regarding the LightGBM model, please refer to \cite{NIPS2017_6449f44a}.

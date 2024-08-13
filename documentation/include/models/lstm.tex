@@ -1,0 +1,22 @@
+%\subsubsection*{Motivation}
+Since \glspl{rnn} and \glspl{lstm} are specifically designed for processing sequential data, making them particularly effective for handling text and tasks involving natural language, they served as ideal starting points for early prototyping.\\
+
+\glspl{rnn} and \glspl{lstm} formed the initial approach, primarily exploring the wording metric, in the hopes that these models could assess the use of objective language and evaluate the use of lexis and syntax. This approach also allowed the team to get comfortable with the dataset, preprocessing techniques, as well as model implementation and training with PyTorch\footnote{\href{https://pytorch.org/}{PyTorch - Website}}, tracking with Weights \& Biases (WandB)\footnote{\href{https://wandb.ai/site}{Weights \& Biases - Website}} and a models evaluation processes. However, this first approach was discarded in favor of other models that had better performance for comparable efforts.
+
+\subsubsection{Model Architectures}
+Both the \gls{rnn} and \gls{lstm} models used a similar bidirectional architecture featuring a linear classifier as output. Stopwords were removed from the summaries, the remaining words were uncapitalized and stemmed to their base forms. Each of these \glsdisp{token}{word-tokens} were vectorized using \gls{w2v}. These encoded strings then got passed into the model sequentially. After processing each \gls{token}, the classifier generated the prediction for the wording score of that summary.\\ 
+
+\subsubsection{Hyperparameters}
+\begin{itemize}
+    \item \textbf{Model Type:} Whether the Model is an RNN or an LSTM.
+	\item \textbf{Embedding-dim.:} Dimensionality of the word embeddings.
+	\item \textbf{Hidden-dim.:} Dimensionality of the hidden layers.
+	\item \textbf{Num Layers:} Number of layers in the RNN or LSTM.
+	\item \textbf{Epochs:} Number of training Epochs.
+\end{itemize}
+
+%\subsubsection{Training}
+%The training of both \gls{rnn} and \gls{lstm} models involved optimizing the models’ parameters using the Adam optimizer. The \gls{mse} loss function was utilized, measuring the difference between the predicted wording scores and the actual scores. The models were trained for twenty epochs, and the training process was monitored using the WandB platform for experiment tracking.
+
+\subsubsection{Limitations}
+These models struggled with overfitting. Notably, \glspl{rnn} achieved a suspiciously impressive \gls{rmse} score of 0.03 for wording on the training set. This success did not generalize well to the validation set, where \gls{rmse} scores got as high as 2.25, well above the baseline of 0.99. The complex nature of the natural language in the summaries posed challenges for these models. Also, considering that the models only looked at the summaries themself, without comparing them to the reference texts, it was decided to no longer pursue this approach.

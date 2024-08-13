@@ -1,0 +1,359 @@
+ \documentclass[
+	a4paper
+]{scrreprt}
+
+%%% PACKAGES %%%
+
+% add unicode support and use german as language (change to have different auto generated titles like Management Summary)
+\usepackage[utf8]{inputenc}
+% \usepackage[ngerman]{babel}
+
+% Use Helvetica as font
+\usepackage[scaled]{helvet}
+\renewcommand\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+
+\usepackage{float}
+
+% Better tables
+\usepackage{tabularx}
+
+% Better enumerisation env
+\usepackage{enumitem}
+
+% Use graphics
+\usepackage{graphicx}
+
+% Have subfigures and captions
+\usepackage{subcaption}
+
+% Be able to include PDFs in the file
+\usepackage{pdfpages}
+
+% Have custom abstract heading
+\usepackage{abstract}
+
+% Need a list of equation
+\usepackage{tocloft}
+\usepackage{ragged2e}
+
+% Better equation environment
+\usepackage{amsmath}
+
+% Symbols for most SI units
+\usepackage{siunitx}
+
+\usepackage{csquotes}
+
+% Change page rotation
+\usepackage{pdflscape}
+
+% Symbols like checkmark
+\usepackage{amssymb}
+\usepackage{pifont}
+
+\usepackage[absolute]{textpos}
+
+% Code listing package
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+% Glossary, hyperref, babel, polyglossia, inputenc, fontenc must be loaded before this package if they are used
+% \usepackage{glossaries}
+\usepackage[automake]{glossaries}
+% Redefine the quote charachter as we are using ngerman
+\GlsSetQuote{+}
+% Define the usage of an acronym, Abbreviation (Abbr.), next usage: The Abbr. of ...
+\setacronymstyle{long-short}
+
+% Bibliography & citing
+\usepackage[
+	backend=biber,
+	style=apa,
+	bibstyle=apa,
+	citestyle=apa,
+	sortlocale=en_EN
+	]{biblatex}
+\addbibresource{bibliography.bib}
+% \DeclareLanguageMapping{ngerman}{ngerman-apa}
+
+% Clickable Links to Websites and chapters
+% From the documentation: "Make sure it comeslastof your loaded packages, to give it a fighting chance of not beingover-written, since its job is to redefine many LATEX commands"
+\usepackage{hyperref}
+
+%%% COMMAND REBINDINGS %%%
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\notmark}{\textbf{\textasciitilde}}
+
+% Define list of equations - Thanks to Charles Clayton: https://tex.stackexchange.com/a/354096
+\newcommand{\listequationsname}{\huge{Table of Equations}}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{
+	\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}
+}
+\setlength{\cftmyequationsnumwidth}{2.3em}
+\setlength{\cftmyequationsindent}{1.5em}
+
+% Usage {equation}{caption}{label}
+% \indexequation{b = \frac{\pi}{\SI{180}{\degree}}\cdot\beta\cdot 6378.137}{Bogenlänge $b$ des Winkels $\beta$ mit Radius 6378.137m (Distanz zum Erdmittelpunkt am Äquator)}{Bogenlaenge}
+\newcommand{\indexequation}[3]{
+	\begin{align} \label{#3} \ensuremath{\boxed{#1}} \end{align}
+	\myequations{#3} \centering \small \textit{#2} \normalsize \justify }
+
+% Nested Enumeratelist credit to https://tex.stackexchange.com/a/54676
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
+
+%%% PATH DEFINITIONS %%%
+% Define the path were images are found
+\graphicspath{{./img/}{./appendix/}}
+
+%%% GLOSSARY ENTRIES %%%
+\makeglossaries
+\newglossaryentry{rouge}{
+  type=\acronymtype,
+  name={ROUGE},
+  description={Recall-Oriented Understudy for Gisting Evaluation},
+  first={ROUGE}
+}
+\newglossaryentry{mcrmse}{
+  type=\acronymtype,
+  name={MCRMSE},
+  description={Mean Columnwise Root Mean Squared Error},
+  first={Mean Columnwise Root Mean Squared Error (MCRMSE)}
+}
+\newglossaryentry{rmse}{
+  type=\acronymtype,
+  name={RMSE},
+  description={Root Mean Squared Error},
+  first={Root Mean Squared Error (RMSE)}
+}
+\newglossaryentry{mse}{
+  type=\acronymtype,
+  name={MSE},
+  description={Mean Squared Error},
+  first={Mean Squared Error (MSE)}
+}
+\newglossaryentry{mae}{
+  type=\acronymtype,
+  name={MAE},
+  description={Mean Absolute Error},
+  first={Mean Absolute Error (MAE)}
+}
+\newglossaryentry{n-gram}{
+    name={n-gram},
+    plural={n-grams},
+    description={A contiguous sequence of n items (words, characters, etc.) in a text},
+}
+\newglossaryentry{skip-gram}{
+    name={skip-gram},
+    plural={skip-grams},
+    description={An n-gram model where not all consecutive items in a sequence are included, but instead, some elements are skipped},
+}
+
+\newglossaryentry{skip-bigram}{
+    name={skip-bigram},
+    description={A pair of items in a sequence where some elements are skipped}
+}
+\newglossaryentry{lcs}{
+	name={LCS},
+	description={Longest Common Subsequence},
+	first={Longest Common Subsequence (LCS)},
+}
+\newglossaryentry{token}{
+	name={token},
+	description={Individual units, such as words or subwords, extracted from a given text or sequence}
+}
+\newglossaryentry{bleu}{
+	name={BLEU},
+	description={Bilingual Evaluation Understudy}
+}
+\newglossaryentry{meteor}{
+	name={METEOR},
+	description={Metric for Evaluation of Translation with Explicit Ordering}
+}
+\newglossaryentry{perplexity}{
+	name={Perplexity},
+	description={A quantitative measure that assesses how well a language model predicts a given set of text}
+}
+
+\newglossaryentry{goss}{
+	name={GOSS},
+	description={Gradient-based One Side Sampling}
+}
+\newglossaryentry{efb}{
+	name={EFB},
+	description={Exclusive Feature Bundling}
+}
+\newglossaryentry{gbdt}{
+	name={GBDT},
+	description={Gradient-Boosted Decision Trees
+}
+}
+\newglossaryentry{nn}{
+	name={NN},
+	description={Neural Network},
+}
+\newglossaryentry{rnn}{
+	name={RNN},
+	description={Recurrent Neural Network},
+}
+\newglossaryentry{lstm}{
+	name={LSTM},
+	description={Long Short-Term Memory},
+}
+\newglossaryentry{wandb}{
+	name={WandB},
+	description={Weights \& Biases},
+	first={Weights \& Biases (WandB)},
+}
+\newglossaryentry{w2v}{
+	name={Word2Vec},
+	description={A technique for obtaining vector representations of words},
+}
+
+\newglossaryentry{stemming}{
+	name={stemming},
+	description={Reducing a word to its word stem},
+}
+\newglossaryentry{lemmatization}{
+	name={lemmatization},
+	description={Breaking down a word to its root meaning},
+}
+\newglossaryentry{hidden-layer}{
+	name={hidden layer},
+	description={The layer(s) of neurons that are between the input and output layers},
+}
+\newglossaryentry{hidden-dim}{
+	name={hidden-dim},
+	description={The number of neurons in a hidden layer},
+}
+\newglossaryentry{activation function}{
+	name={activation function},
+	description={A non-inear function which calculates the output of a neuron},
+}
+
+\newglossaryentry{max_length}{
+	name={Max length},
+	description={Upper limit on the number of tokens of sequence},
+}
+\newglossaryentry{batch_size}{
+	name={Batch size},
+	description={Specifies the number of data samples processed simultaneously in one iteration},
+}
+\newglossaryentry{epoch}{
+	name={Epoch},
+	description={Denotes the number of times the entire training dataset is passed through the model},
+}
+\newglossaryentry{lr}{
+	name={Learning rate},
+	description={Controls the size of the steps taken during the optimization process},
+}
+\newglossaryentry{weight_decay}{
+	name={Weight decay},
+	description={Regularization technique that applies a penalty to the magnitude of the model's weights},
+}
+
+\newglossaryentry{lgbm_numofest}{
+	name={Number of Estimators},
+	description={Controls the number of decision trees in the model},
+}
+\newglossaryentry{lgbm_lr}{
+	name={Learning Rate},
+	description={Controls the learning speed},
+}
+\newglossaryentry{lgbm_colsamp}{
+	name={Colsample Bytree},
+	description={Fracture of features used to train model (0.75 for example means that 75\% of the features are used for training)},
+}
+\newglossaryentry{lgbm_regalp}{
+	name={Reg Alpha},
+	description={Used to penalize features},
+}
+
+
+%%% DOCUMENT %%%
+
+\begin{document}
+
+\include{include/HSLU_Preamble}
+
+\pagenumbering{Roman}
+
+\include{include/oath}
+
+\begin{abstract}
+\input{include/abstract}
+\end{abstract}
+
+\tableofcontents
+
+\clearpage
+\pagenumbering{arabic}
+
+\include{include/introduction}
+% Josef
+
+\include{include/state_of_the_art}
+% State of the Art and Machine Learning Theory - All
+
+\include{include/data_handling}
+% Data Quality Assesment - Tarrmeehan
+
+\include{include/modeling}
+% Modeling
+% Models - All
+% 	LSTM - Josef
+% 	ROUGE - Josef
+% 	Transfromer - Jonathan
+% 	LGBM - Tarrmeehan
+% 	Ensemble - Josef
+% Model Evaluation - Josef
+% Error Analysis and Improvements - Jonathan
+
+\include{include/outlook}
+% Conclusion - Jonathan
+% Reflection - Jonathan
+
+\newpage
+
+\pagenumbering{Roman}
+
+\appendix
+% Verhindert das Einfügen von Kapiteltitel kleiner als \chapter
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+\printglossaries
+
+\listoffigures
+
+\listofmyequations \pagebreak
+
+\printbibliography
+
+\include{include/appendix}
+
+\end{document}

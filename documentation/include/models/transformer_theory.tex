@@ -1,0 +1,37 @@
+\begin{quote}
+    ``The dominant sequence transduction models are based on complex recurrent or
+    convolutional neural networks that include an encoder and a decoder. The best
+    performing models also connect the encoder and decoder through an attention
+    mechanism. We propose a new simple network architecture, the Transformer,
+    based solely on attention mechanisms, dispensing with recurrence and convolutions
+    entirely.'' \parencite{vaswani2023attention}
+\end{quote}
+
+Transformers are a type of machine learning model primarily used for processing sequential data like text or time series.
+They excel at capturing dependencies between input and output regardless of their distance in the sequence.
+This is achieved through a mechanism called "attention," which allows the model to weigh the importance of different parts of the input data when making predictions.
+
+
+\subsection{DeBERTa}
+\begin{quote}
+``Recent progress in pre-trained neural language models has significantly improved
+the performance of many natural language processing (NLP) tasks. In this paper we propose a new model architecture DeBERTa (Decoding-enhanced BERT
+with disentangled attention) that improves the BERT and RoBERTa models using
+two novel techniques.'' \parencite{he2021deberta}
+\end{quote}
+
+\paragraph{Disentangled Attention} In standard transformer models like BERT, the attention mechanism is based on the interaction between the learnable values query (Q), key (K), and value (V) matrices derived from input embeddings. 
+
+\begin{equation}\label{eq:attention}
+Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+\end{equation}
+\myequations{Transformer Attention}
+
+where $d_k$ is the dimension of the key vector $k$ and query vector $q$. \\
+DeBERTa, which is a BERT-based model, disentangles the attention mechanism into two parts: content-based attention and position-based attention.
+
+\paragraph{Content-based Attention} This part of the attention mechanism focuses on the semantic meaning of the \glspl{token} (content), similar to standard attention mechanisms.
+It computes the attention scores based on the content of the query and key \glspl{token}.
+\paragraph{Position-based Attention} This part is unique to DeBERTa. It computes attention scores based on the relative positions of \glspl{token}, independent of their content. This allows the model to understand the influence of the positional relationships of words on the overall sentence meaning.
+
+\paragraph{Combining Content and Positional Attention} Combining these two types of attention allows the model to capture both the content and their positional relationships, enhancing its ability to understand context and meaning.% and later in the report outperforming the other BERT-based models in the experiments.

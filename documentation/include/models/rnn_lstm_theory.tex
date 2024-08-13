@@ -1,0 +1,15 @@
+\subsection{Recurrent Neural Network}
+\begin{quote}
+``Recurrent Neural Networks (RNNs) are a type of neural network architecture which is mainly used to detect patterns in a sequence of data. [...] 
+While Feedforward Networks pass information through the network without cycles, the RNN has cycles and
+transmits information back into itself. This enables them to extend the functionality of Feedforward
+Networks to also take into account previous inputs $X_{0:t-1}$ and not only the current input $X_{t}.$'' \parencite{DBLP:journals/corr/abs-1912-05911}
+\end{quote}
+\glspl{rnn} do not have a fixed input size, making them great for processing sequential data of varying lengths, such as summaries or other texts. This flexibility allows \glspl{rnn} to evaluate and calculate values from data sequences of any length.
+\subsection{Long Short-Term Memory}
+\begin{quote}
+``Since [LSTMs] use a more constant error, they allow RNNs to learn over a lot more time
+steps (way over 1000). To achieve that, LSTMs store more information outside of the traditional
+neural network flow in structures called gated cells'' \parencite{DBLP:journals/corr/abs-1912-05911}
+\end{quote}
+\glspl{lstm} extends the capabilities of \glspl{rnn}. They are better at maintaining and managing relevant information across longer sequences, making them better suited for processing and understanding lengthy sequential data.

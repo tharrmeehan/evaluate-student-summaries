@@ -1,0 +1,35 @@
+\label{sec:rouge_theory}
+
+\begin{quote}
+``ROUGE stands for Recall-Oriented Understudy for Gisting Evaluation. It includes measures to automatically determine the quality of a summary by comparing it to other (ideal) summaries created by humans. The measures count the number of overlapping units such as n-gram, word sequences, and word pairs between the computer-generated summary to be evaluated and the ideal summaries created by humans.'' \parencite{lin-2004-rouge}
+\end{quote}
+
+\subsubsection{ROUGE Metrics}
+The paper describes four different \gls{rouge} metrics, each with distinct variants:
+%\footnote{All the information about the \gls{rouge}-Metrics is based on the Paper: "ROUGE: A Package for Automatic Evaluation of Summaries". \cite{lin-2004-rouge}}
+\paragraph{ROUGE-N}
+ROUGE-N measures the overlapping \glspl{n-gram} between the summary and the reference text, where N denotes the size of the \glspl{n-gram}. ROUGE-1 and ROUGE-2 are the most often used variations of ROUGE-N. However N can be any natural number.
+\paragraph{ROUGE-L}
+ROUGE-L calculates the \gls{lcs} between the reference and the summary. Where a Subsequence is a sequence of \glspl{token} that occur in the same order, but do not have to be consecutive.
+\paragraph{ROUGE-Lsum}
+ROUGE-Lsum, a variation of ROUGE-L, also calculates the \gls{lcs} between the reference and the summary. But ROUGE-Lsum splits the texts into `sentences' by newlines and calculates the \gls{lcs} for each of these sentences. The average ROUGE-L score of these sentences is the final ROUGE-Lsum score.
+\paragraph{ROUGE-W}
+The ROUGE-W metric also evaluates the \gls{lcs} between the reference and summary. However, ROUGE-W emphasizes consecutive \glspl{token}, assigning them greater importance based on the weight W.
+\paragraph{ROUGE-S}
+ROUGE-S measures the overlap of \glspl{skip-bigram} (2-grams with a specified gap S) between the summary and the reference text. This variation allows certain \glspl{token} to be skipped.
+\paragraph{ROUGE-SU}
+ROUGE-SU extends upon ROUGE-S by including unigram (1-gram) matches which function as a counter.\\
+\\
+All \gls{rouge} metrics consist of three key values: Precision, Recall, and F1-Score, each ranging from 0 to 1. These three values are calculated as follows:
+\begin{equation}\label{eq:transformer_attention}
+    Precision = \dfrac{\# Overlaps}{\# Tokens\ in\ Summary}
+\end{equation}
+\myequations{ROUGE-Precision}
+\begin{equation}\label{eq:transformer_attention}
+    Recall = \dfrac{\# Overlaps}{\# Tokens\ in\ Reference}
+\end{equation}
+\myequations{ROUGE-Recall}
+\begin{equation}\label{eq:transformer_attention}
+    F1-Score = \dfrac{2 * Precision * Recall}{Precision + Recall}
+\end{equation}
+\myequations{F1-Score}
