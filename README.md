@@ -2,8 +2,8 @@
 This group project is part of the "AI Challenge," a 12 ECTS course offered by the Lucerne University of Applied Sciences. In this course a [final report](EvalStudentSummaries_Report.pdf) will be created and evaluated
 
 Team Members:
-- Jonathan Carona
 - Tharrmeehan Krishnathasan
+- Jonathan Carona
 - Josef Rittiner
   
 Throughout this course, our team participated in the already finished Kaggle competition titled <a href="https://www.kaggle.com/competitions/commonlit-evaluate-student-summaries"> "Evaluate Student Summaries." </a> The primary objective of this competition is as follows:
