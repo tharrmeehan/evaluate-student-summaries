@@ -2,9 +2,9 @@
 
 A three-model ensemble for the [CommonLit — Evaluate Student Summaries](https://www.kaggle.com/competitions/commonlit-evaluate-student-summaries) Kaggle competition. The system predicts two continuous scores — content coverage and writing quality (wording) — for student-written summaries of grades 3–12 source texts.
 
-Competition result: **975th out of 2,065 teams** (top 47%).
+Historical competition result: **975th out of 2,065 teams** (top 47%), as recorded for the competition submission. This documents the reported result; it does not establish that the full pipeline is currently reproducible.
 
-Team: Tharrmeehan Krishnathasan, Jonathan Carona, Josef Rittiner — AI Challenge, Hochschule Luzern (12 ECTS).
+Team: Tharrmeehan Krishnathasan, Jonathan Carona, Josef Rittiner — AI Challenge, Hochschule Luzern (12 ECTS). Competition: [CommonLit — Evaluate Student Summaries](https://www.kaggle.com/competitions/commonlit-evaluate-student-summaries).
 
 ---
 
@@ -51,38 +51,32 @@ Python, PyTorch, Hugging Face Transformers (DeBERTa v3 Large), LightGBM, scikit-
 
 - **DeBERTa v3 Large for semantic alignment** — fine-tuned on the concatenation of the prompt text and student summary, DeBERTa captures whether the student understood and addressed the prompt's specific question. This is information that neither ROUGE metrics nor readability indices encode.
 
-- **Ensemble by weighted averaging** — rather than stacking with a meta-learner (which risks overfitting on a small validation set), the three model predictions are blended with fixed weights. This was found to be more stable given the competition's test-set distribution.
+- **Ensemble by weighted averaging** — the documented design blends predictions from the three models with fixed weights. The repository does not establish that this blend remains reproducible in the current environment.
 
 ---
 
-## Production Metrics & Validation
+## Historical Result & Project Artifacts
 
-- Evaluated on Kaggle's held-out test set using MCRMSE (Mean Columnwise Root Mean Squared Error) across the content and wording targets.
-- Baseline (DummyRegressor, median strategy) established early in the course for reference.
-- Final ensemble placed **975 / 2,065** in the public leaderboard.
-- Full methodology and ablation discussion available in [`EvalStudentSummaries_Report.pdf`](EvalStudentSummaries_Report.pdf).
+- Historical Kaggle result: **975 / 2,065** on the public leaderboard.
+- The repository includes the [course report](EvalStudentSummaries_Report.pdf) and [final team report](documentation/finale/Team4-Evaluate-Student-Sumaries-Report.pdf). Submission and workflow examples include [the Kaggle submission notebook](Tharrmeehan_Playground/Kaggle_Submission_Notebook.ipynb), [the final notebook](Tharrmeehan_Playground/Final_Notebook.ipynb), and the model notebooks below.
+- The leaderboard result is historical, not a claim that the notebooks can currently reproduce the submission or result.
+
+Competition data and redistribution: this repository contains competition-related datasets and artifacts. Do not assume Kaggle permits their redistribution; obtain data through the [official competition page](https://www.kaggle.com/competitions/commonlit-evaluate-student-summaries/data) and check its current rules and terms before sharing or reusing any competition data.
 
 ---
 
 ## Local Replication
 
-Prerequisites: Python 3.8+, CUDA recommended for DeBERTa fine-tuning.
+Prerequisites vary by notebook and include Python plus the libraries used by each model. The notebooks reference data in different repository subdirectories; inspect each notebook's setup and data-loading cells and provide the expected inputs before running it.
+
+Competition data may be subject to access and redistribution restrictions. Download it from the [official Kaggle data page](https://www.kaggle.com/competitions/commonlit-evaluate-student-summaries/data) only if eligible, and follow the current terms. Do not treat checked-in data copies as permission to redistribute.
+
+These are research and competition artifacts, not a verified end-to-end reproduction. No full rerun is claimed.
 
 ```bash
-git clone https://github.com/tharrmeehan/evaluate-student-summaries.git
-cd evaluate-student-summaries
-
-pip install pandas scikit-learn lightgbm torch transformers rouge-score jupyter
-
-# Download competition data from Kaggle and place in data/
-# https://www.kaggle.com/competitions/commonlit-evaluate-student-summaries/data
-
-# Run individual models
 jupyter notebook LightGBM-Model/run_lightgbm.ipynb
 jupyter notebook ROUGE-Based-Model/run_rouge_new.ipynb
 jupyter notebook Transformer_Deberta-V3-Large/run_transformer_new.ipynb
-
-# Run the ensemble
 jupyter notebook Ensemble/run_transformer_new.ipynb
 ```
 
